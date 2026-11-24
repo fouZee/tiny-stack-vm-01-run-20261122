@@ -136,9 +136,9 @@ const O = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 for (const id of readdirSync(I).sort()) {
   const pp = join(I, id, 'program.bin');
   if (!existsSync(pp)) continue;
-  const prog = new Uint8Array(readFileSync(pp));
+  const prog = readFileSync(pp);
   const ip = join(I, id, 'input.bin');
-  const inp = existsSync(ip) ? new Uint8Array(readFileSync(ip)) : new Uint8Array(0);
+  const inp = existsSync(ip) ? readFileSync(ip) : new Uint8Array(0);
   let res;
   try { res = run(prog, inp); } catch { res = { out: new Uint8Array(0), code: 1 }; }
   mkdirSync(join(O, id), { recursive: true });
